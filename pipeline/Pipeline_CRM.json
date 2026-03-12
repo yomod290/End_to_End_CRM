@@ -92,24 +92,12 @@
 											"sink": {
 												"type": "BinarySink",
 												"storeSettings": {
-													"type": "FileServerWriteSettings"
+													"type": "AzureBlobFSWriteSettings"
 												}
 											},
 											"enableStaging": false
 										},
 										"inputs": [
-											{
-												"referenceName": "DS_OnPrem_Folder",
-												"type": "DatasetReference",
-												"parameters": {
-													"pFolder": {
-														"value": "@pipeline().parameters.sourceFolder",
-														"type": "Expression"
-													}
-												}
-											}
-										],
-										"outputs": [
 											{
 												"referenceName": "DS_OnPrem_Files",
 												"type": "DatasetReference",
@@ -118,6 +106,19 @@
 														"value": "@pipeline().parameters.sourceFolder",
 														"type": "Expression"
 													},
+													"pFileName": {
+														"value": "@item().name",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_ADLS_Landing_Files",
+												"type": "DatasetReference",
+												"parameters": {
+													"pFolder": "excel/inbound",
 													"pFileName": {
 														"value": "@item().name",
 														"type": "Expression"
@@ -135,8 +136,7 @@
 		],
 		"parameters": {
 			"sourceFolder": {
-				"type": "string",
-				"defaultValue": "CargaExcel"
+				"type": "string"
 			}
 		},
 		"annotations": []
