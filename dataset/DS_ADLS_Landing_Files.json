@@ -1,0 +1,33 @@
+{
+	"name": "DS_ADLS_Landing_Files",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_DataLake",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"pFolder": {
+				"type": "string"
+			},
+			"pFileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().pFileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().pFolder",
+					"type": "Expression"
+				},
+				"fileSystem": "raw"
+			}
+		}
+	}
+}

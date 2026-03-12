@@ -1,0 +1,146 @@
+{
+	"name": "Pipeline_CRM",
+	"properties": {
+		"activities": [
+			{
+				"name": "GET_FILE_LIST",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_OnPrem_Files",
+						"type": "DatasetReference",
+						"parameters": {
+							"pFolder": {
+								"value": "@pipeline().parameters.sourceFolder",
+								"type": "Expression"
+							},
+							"pFileName": "test"
+						}
+					},
+					"fieldList": [
+						"itemName"
+					],
+					"storeSettings": {
+						"type": "FileServerReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "BinaryReadSettings"
+					}
+				}
+			},
+			{
+				"name": "FOREACH_FILE",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "GET_FILE_LIST",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('GET_FILE_LIST').output.childItems",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "If Condition1",
+							"type": "IfCondition",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@endsWith(item().name,'.csv')",
+									"type": "Expression"
+								},
+								"ifTrueActivities": [
+									{
+										"name": "COPY_TO_ADLS",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "0.12:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "BinarySource",
+												"storeSettings": {
+													"type": "FileServerReadSettings",
+													"recursive": true
+												},
+												"formatSettings": {
+													"type": "BinaryReadSettings"
+												}
+											},
+											"sink": {
+												"type": "BinarySink",
+												"storeSettings": {
+													"type": "AzureBlobFSWriteSettings"
+												}
+											},
+											"enableStaging": false
+										},
+										"inputs": [
+											{
+												"referenceName": "DS_OnPrem_Files",
+												"type": "DatasetReference",
+												"parameters": {
+													"pFolder": {
+														"value": "@pipeline().parameters.sourceFolder",
+														"type": "Expression"
+													},
+													"pFileName": {
+														"value": "@item().name",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "DS_ADLS_Landing_Files",
+												"type": "DatasetReference",
+												"parameters": {
+													"pFolder": "excel/inbound",
+													"pFileName": {
+														"value": "@item().name",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"sourceFolder": {
+				"type": "string",
+				"defaultValue": "CargaExcel"
+			}
+		},
+		"annotations": []
+	}
+}
