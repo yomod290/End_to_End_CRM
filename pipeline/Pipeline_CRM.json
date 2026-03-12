@@ -118,6 +118,7 @@
 												"referenceName": "DS_ADLS_Landing_Files",
 												"type": "DatasetReference",
 												"parameters": {
+													"pFolder": "data",
 													"pFileName": {
 														"value": "@item().name",
 														"type": "Expression"
