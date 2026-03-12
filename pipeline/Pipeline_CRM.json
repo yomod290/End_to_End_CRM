@@ -118,7 +118,6 @@
 												"referenceName": "DS_ADLS_Landing_Files",
 												"type": "DatasetReference",
 												"parameters": {
-													"pFolder": "excel/inbound",
 													"pFileName": {
 														"value": "@item().name",
 														"type": "Expression"
