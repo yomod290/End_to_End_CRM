@@ -16,14 +16,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DS_OnPrem_Files",
+						"referenceName": "DS_OnPrem_Folder",
 						"type": "DatasetReference",
 						"parameters": {
 							"pFolder": {
 								"value": "@pipeline().parameters.sourceFolder",
 								"type": "Expression"
-							},
-							"pFileName": "test"
+							}
 						}
 					},
 					"fieldList": [
@@ -93,12 +92,24 @@
 											"sink": {
 												"type": "BinarySink",
 												"storeSettings": {
-													"type": "AzureBlobFSWriteSettings"
+													"type": "FileServerWriteSettings"
 												}
 											},
 											"enableStaging": false
 										},
 										"inputs": [
+											{
+												"referenceName": "DS_OnPrem_Folder",
+												"type": "DatasetReference",
+												"parameters": {
+													"pFolder": {
+														"value": "@pipeline().parameters.sourceFolder",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
 											{
 												"referenceName": "DS_OnPrem_Files",
 												"type": "DatasetReference",
@@ -107,19 +118,6 @@
 														"value": "@pipeline().parameters.sourceFolder",
 														"type": "Expression"
 													},
-													"pFileName": {
-														"value": "@item().name",
-														"type": "Expression"
-													}
-												}
-											}
-										],
-										"outputs": [
-											{
-												"referenceName": "DS_ADLS_Landing_Files",
-												"type": "DatasetReference",
-												"parameters": {
-													"pFolder": "excel/inbound",
 													"pFileName": {
 														"value": "@item().name",
 														"type": "Expression"
