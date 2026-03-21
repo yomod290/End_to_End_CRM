@@ -9,6 +9,9 @@
 
 # 📊 Pipeline End-to-End de Ingeniería de Datos para Analítica de Ventas CRM (Azure)
 
+<img width="1311" height="714" alt="image" src="https://github.com/user-attachments/assets/4cbb54f3-8359-4275-b374-92b50f9596e7" />
+
+
 ## 📌 Descripción del Proyecto
 
 Este proyecto implementa un **pipeline End-to-End de Ingeniería de Datos en Microsoft Azure** para ingerir, procesar y analizar datos de ventas provenientes de un sistema CRM utilizando una arquitectura moderna **Lakehouse**.
