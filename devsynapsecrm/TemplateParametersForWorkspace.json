@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "devsynapsecrm"
+		},
+		"File_Location_password": {
+			"value": ""
+		},
+		"LS_ADLS_DataLake_accountKey": {
+			"value": ""
+		},
+		"devsynapsecrm-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:devsynapsecrm.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"File_Location_properties_typeProperties_host": {
+			"value": "C:\\Users\\Administrador\\Documents\\Proyecto End to End CRM Sales"
+		},
+		"File_Location_properties_typeProperties_userId": {
+			"value": "Administrador"
+		},
+		"LS_ADLS_DataLake_properties_typeProperties_url": {
+			"value": "https://adsldevcrm.dfs.core.windows.net/"
+		},
+		"devsynapsecrm-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://adsldevcrm.dfs.core.windows.net"
+		}
+	}
+}
