@@ -9,7 +9,8 @@
 
 # 📊 Pipeline End-to-End de Ingeniería de Datos para Analítica de Ventas CRM (Azure)
 
-<img width="1311" height="714" alt="image" src="https://github.com/user-attachments/assets/4cbb54f3-8359-4275-b374-92b50f9596e7" />
+<img width="1311" height="721" alt="image" src="https://github.com/user-attachments/assets/2fdedac4-46b3-4d78-a232-0bc0f3b2bfc0" />
+
 
 
 ## 📌 Descripción del Proyecto
